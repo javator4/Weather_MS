@@ -11,7 +11,7 @@ public class FasterImplementation implements WeatherForecast {
 
     private WeatherService weatherService;
     private String city;
-    
+
     public FasterImplementation(WeatherService weatherService, String city) {
         this.weatherService = weatherService;
         this.city = city;
@@ -25,7 +25,6 @@ public class FasterImplementation implements WeatherForecast {
         try {
             weather = objectMapper.readValue(this.weatherService.getJSONData(this.city), Weather.class);
             objectMapper.writeValue(new File("data.json"), weather);
-            System.out.println(weather.getLocation().getCountry());
         } catch (IOException e) {
             e.printStackTrace();
         }
