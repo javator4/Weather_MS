@@ -33,12 +33,19 @@ public class WeatherService {
             String feelsTempC = jsonObject.getJSONObject("current").get("feelslike_c").toString();
             String isDay = jsonObject.getJSONObject("current").get("is_day").toString();
 
-            Current current = new Current();
-            current.setTemp_c(Double.parseDouble(tempC));
-            current.setLast_updated(lastUpdate);
-            current.setTemp_f(Double.parseDouble(tempF));
-            current.setFeelslike_c(Double.parseDouble(feelsTempC));
-            current.setIs_day(Integer.parseInt(isDay));
+            Current current = Current.builder()
+                    .temp_c(Double.parseDouble(tempC))
+                    .last_updated(lastUpdate)
+                    .feelslike_c(Double.parseDouble(feelsTempC))
+                    .is_day(Integer.parseInt(isDay))
+                    .build();
+
+
+//            current.setTemp_c(Double.parseDouble(tempC));
+//            current.setLast_updated(lastUpdate);
+//            current.setTemp_f(Double.parseDouble(tempF));
+//            current.setFeelslike_c(Double.parseDouble(feelsTempC));
+//            current.setIs_day(Integer.parseInt(isDay));
 
             return current;
 
