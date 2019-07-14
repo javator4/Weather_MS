@@ -24,6 +24,8 @@ public class Current {
     private double pressure_in;
     private double humidity;
     private double cloud;
+    private double precip_mm;
+    private double precip_in;
     private double feelslike_c;
     private double feelslike_f;
     private double vis_km;
