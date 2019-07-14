@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import pl.sda.model.Condition;
 import pl.sda.model.Current;
+import pl.sda.model.Location;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +14,7 @@ public class WeatherService {
     private String site;
     private String key;
     private String finalURL;
+    private String data;
 
     public WeatherService(String site, String key) {
         this.site = site;
@@ -20,13 +22,45 @@ public class WeatherService {
         this.finalURL = this.site + "?key=" + this.key;
     }
 
-    public Current getCityWeather(String city) {
-        this.finalURL = this.finalURL + "&q=" + city;
+    public Location getLocation(){
 
+        JSONObject jsonObject = new JSONObject(data);
+
+        String region = jsonObject.getJSONObject("location").get("region").toString();
+        String country = jsonObject.getJSONObject("location").get("country").toString();
+        String lat = jsonObject.getJSONObject("location").get("lat").toString();
+        String lon = jsonObject.getJSONObject("location").get("lon").toString();
+        String localTime = jsonObject.getJSONObject("location").get("localtime").toString();
+
+        Location location = Location.builder()
+                .region(region)
+                .country(country)
+                .lat(Double.parseDouble(lat))
+                .lon(Double.parseDouble(lon))
+                .localtime(localTime)
+                .build();
+
+        return location;
+    }
+
+    public WeatherService getJSONData(String city){
+        this.finalURL = this.finalURL + "&q=" + city;
+        String data = "";
         try {
-            String data = IOUtils.toString(new URL(this.finalURL), Charset.forName("UTF-8"));
+            data = IOUtils.toString(new URL(this.finalURL), Charset.forName("UTF-8"));
+            JSONObject jsonObject = new JSONObject(data);
+
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.data = data;
+        return this;
+    }
+
+    public Current getCityWeather() {
 
             JSONObject jsonObject = new JSONObject(data);
+
             String tempC = jsonObject.getJSONObject("current").get("temp_c").toString();
             String tempF = jsonObject.getJSONObject("current").get("temp_f").toString();
             String lastUpdate = jsonObject.getJSONObject("current").get("last_updated").toString();
@@ -40,22 +74,7 @@ public class WeatherService {
                     .is_day(Integer.parseInt(isDay))
                     .build();
 
-
-//            current.setTemp_c(Double.parseDouble(tempC));
-//            current.setLast_updated(lastUpdate);
-//            current.setTemp_f(Double.parseDouble(tempF));
-//            current.setFeelslike_c(Double.parseDouble(feelsTempC));
-//            current.setIs_day(Integer.parseInt(isDay));
-
             return current;
-
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-
-    }
 
 }

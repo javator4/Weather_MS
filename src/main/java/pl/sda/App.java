@@ -15,7 +15,8 @@ public class App
         WeatherService weatherService = new WeatherService("http://api.apixu.com/v1/current.json", "e5434bc67a674701ac281204191307");
 
 
-        System.out.println(weatherService.getCityWeather("Torun").getTemp_c());
+        System.out.println(weatherService.getJSONData("Torun").getCityWeather());
+        System.out.println(weatherService.getJSONData("Torun").getLocation());
 
     }
 }
