@@ -1,7 +1,7 @@
 package pl.sda;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.log4j.Logger;
-
 
 public class App 
 {
@@ -13,7 +13,6 @@ public class App
         logger.warn("WARNING!");
         logger.debug(("DEBUG"));
         logger.error("ERROR");
-
 
         String url = "http://api.apixu.com/v1/current.json?key=e5434bc67a674701ac281204191307&q=Torun";
         WeatherService weatherService = new WeatherService("http://api.apixu.com/v1/current.json", "e5434bc67a674701ac281204191307");
@@ -27,14 +26,19 @@ public class App
         JsonDataFaster jsonDataFaster = new JsonDataFaster();
         jsonDataFaster.setSite("http://api.apixu.com/v1/current.json");
         jsonDataFaster.setKey("e5434bc67a674701ac281204191307");
+        jsonDataFaster.setCity("Warszawa");
         jsonDataFaster.build();
 
         System.out.println(jsonDataFaster.getWeather());
 
         System.out.println("TEST");
 
-
-
+        JsonDataOrg jsonDataOrg = new JsonDataOrg();
+        jsonDataOrg.setKey("e5434bc67a674701ac281204191307");
+        jsonDataOrg.setSite("http://api.apixu.com/v1/current.json");
+        jsonDataOrg.setCity("Bydgoszcz");
+        jsonDataOrg.build();
+        System.out.println(jsonDataOrg.getWeather());
 
     }
 }

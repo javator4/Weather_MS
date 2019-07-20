@@ -1,5 +1,6 @@
 package pl.sda;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.io.IOUtils;
@@ -12,6 +13,7 @@ import java.nio.charset.Charset;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public abstract class AbstractJsonData {
 
     private String site;
