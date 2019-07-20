@@ -3,10 +3,6 @@ package pl.sda;
 import org.apache.log4j.Logger;
 
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     private static Logger logger = Logger.getLogger(App.class);
@@ -26,6 +22,16 @@ public class App
         WeatherForecast weatherForecast1 = new FasterImplementation(weatherService, "Torun");
 
         System.out.println(weatherForecast1.getWeather());
+        System.out.println(weatherForecast1.getWeather());
+
+        JsonDataFaster jsonDataFaster = new JsonDataFaster();
+        jsonDataFaster.setSite("http://api.apixu.com/v1/current.json");
+        jsonDataFaster.setKey("e5434bc67a674701ac281204191307");
+        jsonDataFaster.build();
+
+        System.out.println(jsonDataFaster.getWeather());
+
+        System.out.println("TEST");
 
 
 

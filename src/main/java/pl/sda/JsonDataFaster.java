@@ -6,23 +6,15 @@ import pl.sda.model.Weather;
 import java.io.File;
 import java.io.IOException;
 
-public class FasterImplementation implements WeatherForecast {
+public class JsonDataFaster extends AbstractJsonData {
 
-    private WeatherService weatherService;
-    private String city;
-
-    public FasterImplementation(WeatherService weatherService, String city) {
-        this.weatherService = weatherService;
-        this.city = city;
-    }
 
     @Override
-    public Weather getWeather() {
-
+    Weather getWeather() {
         ObjectMapper objectMapper = new ObjectMapper();
         Weather weather = null;
         try {
-            weather = objectMapper.readValue(this.weatherService.getJSONData(this.city), Weather.class);
+            weather = objectMapper.readValue(this.getJSONData("torun"), Weather.class);
             objectMapper.writeValue(new File("data.json"), weather);
         } catch (IOException e) {
             e.printStackTrace();

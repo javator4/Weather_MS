@@ -1,29 +1,33 @@
 package pl.sda;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
-import pl.sda.model.Condition;
-import pl.sda.model.Current;
-import pl.sda.model.Location;
 import pl.sda.model.Weather;
 
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class WeatherService {
+@Data
+@NoArgsConstructor
+public abstract class AbstractJsonData {
+
     private String site;
     private String key;
     private String finalURL;
     private String data = "";
 
-    public WeatherService(String site, String key) {
-        this.site = site;
-        this.key = key;
+    public AbstractJsonData(String site) {
         this.finalURL = this.site + "?key=" + this.key;
     }
+
+    public void build(){
+        this.finalURL = this.site + "?key=" + this.key;
+    }
+
+    abstract Weather getWeather();
 
 
     public String getJSONData(String city){
@@ -37,11 +41,7 @@ public class WeatherService {
                 e.printStackTrace();
             }
         }
-            return data;
+        return data;
 
     }
-
-
-
-
 }
