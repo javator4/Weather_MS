@@ -40,5 +40,7 @@ public class App
         jsonDataOrg.build();
         System.out.println(jsonDataOrg.getWeather());
 
+        //todo Udoskonalić projekt. Użytkownik ma wpisać miasto i pogoda ma zostac wyswietlona
+
     }
 }

@@ -21,10 +21,6 @@ public abstract class AbstractJsonData {
     private String finalURL;
     private String data = "";
 
-    public AbstractJsonData(String site) {
-        this.finalURL = this.site + "?key=" + this.key;
-    }
-
     public void build(){
         this.finalURL = this.site + "?key=" + this.key;
     }
